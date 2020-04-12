@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TW</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+
+button.limb{
+  border: 1px solid white;
+  background-color:black;
+  color: white;
+  padding: 7px 13px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button.icon{
+  border: 1px solid white;
+  background-color:black;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+button.limb:hover{
+  border: 1px solid white;
+  background-color:grey;
+  color: white;
+  padding: 7px 13px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 30px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+div.animation {
+  position:relative;
+  width: 50px;
+  height: 2px;
+  background-color: red;
+  animation-name: example;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes example {
+  0%   {background-color: red;left:10%;}
+  50%  {background-color: yellow;left:85%;}
+  100% {background-color: green;left:10%;}
+}
+
+.pret{
+font-family:Do Hyeon,garamond,serif;
+color:#896599;
+font-size:30px;
+font-weight:700;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  padding: 5px;
+  height:500px
+  }
+
+body{
+background-color:#eee;
+}
+
+div.product{
+border-radius: 25px;
+}
+
+.vertical-menu {
+  width: 100%;
+  border:1px solid lightgrey;
+}
+
+.vertical-menu a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:25px;
+  background-color: #eee;
+  color: black;
+  display: block;
+  padding:20px;
+  text-decoration: none;
+}
+
+.vertical-menu a:hover {
+  background-color:#e4e4e4;
+  font-weight:700;
+  color:black;
+  border-right:5px solid grey;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+.left {
+  float:left;
+  width:20%; 
+}
+
+.main {
+  padding:20px;
+  float:left;
+  width:80%; 
+}
+
+@media screen and (max-width:900px) {
+  .column {
+  padding: 5px;
+  height:400px
+  }
+  .main{
+    width:100%;
+  }
+  .left{
+  width:100%;
+  text-align:center;
+  }
+  
+  .img-slider{
+  width:100%;
+  height:100%;
+  }
+  
+  .vertical-menu a:hover {
+  background-color:#e6e6e6;
+  font-weight:700;
+  color:black;
+  border-right:5px solid grey;
+  border-left:5px solid grey;
+}
+  .bt{
+  padding: 10px 10px;
+  }
+}
+</style>
+</head>
+<body leftmargin="2%">
+<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+<button class="limb" onclick="ro()">Ro</button><a href="eshop.html" class="limb"><button class="limb">En</button></a>
+<button id="icon" class="bt" style="float:right" onclick="bt()"><img src="night-mode.png" width=25px height=25px;></button>
+<div class="animation"></div>
+<center><font id="title" style="font-size:100px;font-family:Book Antiqua,garamond,serif;">TOP OF THE MONTH</font></center>
+<div class="animation"></div>
+<hr id="ln1" style="size:2;" color=black>
+<div>
+  <img height=500px width=100% class="img-slider" id="img-slider"  src="1.jpg">
+</div>
+<br>
+<hr id="ln2" style="size:2;" color=black>
+<br><br>
+<center><font id="top" size="50" style="font-family:Tahoma, Geneva,serif;">The top products of the month</font></center>
+<br><br><br>
+
+<div class="row">
+  <div class="column">
+    <img src="" style="width:100%">
+  </div>
+  <a href="#smartphoane"><div class="column" style="border:1px solid black; background-color:white">
+    <img src="iphone11.jpg" style="width:100%">
+	<center><br><br><br><br><h2>Iphone 11</h2><br>
+	<font class="pret">17999 lei</font>
+	</center>
+  </div></a>
+  <a href="#televizoare"><div class="column" style="border:1px solid black; background-color:white">
+    <img src="samsungnew.jpg" style="width:100%">
+	<center><h2>Samsung 50" UE50NU7090UXUA Smart TV 4K Black</h2>
+	<br>
+	<font class="pret">7799 lei</font>
+	</center>
+  </div></a>
+  
+  <a href="#laptopuri"><div class="column" style="border:1px solid black; background-color:white">
+    <img src="laptop.jpg" style="width:100%">
+	<center><br><br><br><br><h2>Asus M570DD (DM001)</h2><br>
+	<font class="pret">13119 lei</font>
+	</center>
+  </div></a>
+  
+  <a href="#ceasuriinteligente"><div class="column" style="border:1px solid black; background-color:white">
+    <img width=50% src="miband.jpg" style="width:100%">
+	<center><br><br><br><br><h2>Xiaomi Mi Band 4 HR</h2><br>
+	<font class="pret">699 lei</font>
+	</center>
+  </div></a>
+</div>
+<br><br>
+<hr id="ln3" style="size:2;font-family:Tahoma, Geneva,serif;" color=black>
+<a name="smartphoane"></a>
+<br>
+<br>
+<br>
+<br>
+<img  src="iphone11demo.png" width=49.5% height=49.5%>
+<img  src="iphone11yellow.png" width=49.5% height=49.5%>
+
+<a name="televizoare"></a>
+<br><br>
+<br><br>
+<br><br>
+
+<img src="tcl.png" width=49.5% height=49.5%>
+<img src="hisense.png" width=49.5% height=49.5% >
+<a name="laptopuri"></a>
+<br><br>
+<br><br>
+<br><br>
+
+<img src="asus.png" width=49.5% height=49.5%>
+<img src="asuszenbook.png" width=49.5% height=49.5% >
+
+
+<br><br>
+<a name="ceasuriinteligente"></a>
+<br><br>
+<br><br>
+
+<img src="amazfitbip.png" width=49.5% height=49.5%>
+<img src="miband4full.png" width=49.5% height=49.5% >
+</body>
+<script>
+
+function ro(){
+document.getElementById('title').innerHTML="Produsele Lunii";
+document.getElementById('top').innerHTML="Produsele Lunii";
+document.getElementById('a1').innerHTML="Smartphonane";		
+document.getElementById('a2').innerHTML="Tablete";
+document.getElementById('a3').innerHTML="Laptopuri";
+document.getElementById('a4').innerHTML="Gadgeturi";
+document.getElementById('a6').innerHTML="Accesorii";
+}
+
+var mybutton = document.getElementById("myBtn");
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+x=1;
+setInterval(
+function schimb(){
+x = x + 1;
+if(x>=10)x = 1;
+if(x==1)document.getElementById('img-slider').src="1.jpg";
+if(x==2)document.getElementById('img-slider').src="2.jpg";
+if(x==3)document.getElementById('img-slider').src="3.jpg";
+if(x==4)document.getElementById('img-slider').src="4.jpg";
+if(x==5)document.getElementById('img-slider').src="5.jpg";
+if(x==6)document.getElementById('img-slider').src="6.jpg";
+if(x==7)document.getElementById('img-slider').src="7.jpg";
+if(x==8)document.getElementById('img-slider').src="8.jpg";
+if(x==9)document.getElementById('img-slider').src="9.jpg";
+}
+,3000);
+var ok = true;
+function bt(){
+ok = !ok;
+if(ok==false){
+document.body.style.backgroundColor = "#333333";
+document.getElementById('ln1').color="#e6e6e6";
+document.getElementById('ln2').color="#e6e6e6";
+document.getElementById('ln3').color="#e6e6e6";
+document.getElementById('title').color="#e6e6e6";
+
+document.getElementById('a1').style.backgroundColor="#595959";		
+document.getElementById('a2').style.backgroundColor="#595959";
+document.getElementById('a3').style.backgroundColor="#595959";
+document.getElementById('a4').style.backgroundColor="#595959";
+document.getElementById('a5').style.backgroundColor="#595959";
+document.getElementById('a6').style.backgroundColor="#595959";
+
+document.getElementById('a1').style.color="white";		
+document.getElementById('a2').style.color="white";
+document.getElementById('a3').style.color="white";
+document.getElementById('a4').style.color="white";
+document.getElementById('a5').style.color="white";
+document.getElementById('a6').style.color="white";
+
+document.getElementById('a1').style.color="white";		
+document.getElementById('a2').style.color="white";
+document.getElementById('a3').style.color="white";
+document.getElementById('a4').style.color="white";
+document.getElementById('a5').style.color="white";
+document.getElementById('a6').style.color="white";
+
+document.getElementById('img-slider').style.border="1px solid white";
+document.getElementById('top').style.color="white";}
+else{window.location.reload();}
+}
+</script>
+
+
+</html>
