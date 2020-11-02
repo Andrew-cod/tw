@@ -1,39 +1,34 @@
-<html style="font-family: Noticia Text, Regular;" >
-<head>
+<html style="font-family: Noticia Text, Regular;"><head>
     <title>Poputca</title>
-    <link rel="shortcut icon" href="car-icon.png" />
+    <link rel="shortcut icon" href="car-icon.png">
     <link rel="stylesheet" href="https://use.typekit.net/bsz1qlf.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  </head>
-<body style="margin:0;" >
+<body style="margin:0;">
 <section class="top-bar">
-<?php 
-require "db.php";
-
-if ( isset($_SESSION['logged_user'])) : ?>
 
 <!-- Daca esti logat -->
 
 
 
 <br>
-<img src="img/logo-violet.png" height="10%"  class="logo-violet" >
+<img src="img/logo-violet.png" height="10%" class="logo-violet">
 <br>
-&nbsp<div class="nume" >
-<a href="anunt.php" class="buton-adauga-un-anunt" >Adaugă un anunț</a>
-<a href="anunturile_mele.php" class="buton-adauga-un-anunt" >Anunțurile mele</a>
+&nbsp;<div class="nume">
+<a href="anunt.php" class="buton-adauga-un-anunt">Adaugă un anunț</a>
+<a href="anunturile_mele.php" class="buton-adauga-un-anunt">Anunțurile mele</a>
 </div>
 
 </section>
 <br>
-<a href="logout.php" class="logout buton-iesire" >Ieșiți</a>
+<a href="logout.php" class="logout buton-iesire">Ieșiți</a>
 
 
-<img src="img/unnamed1.jpg" width="100%" class="img" >
+<img src="img/unnamed1.jpg" width="100%" class="img">
 
 <center>
-<form action="index.php" method="GET" class="cautare" >
-<select value="" name="orasul_p" required >
+<form action="index.php" method="GET" class="cautare">
+<select value="" name="orasul_p" required="">
   <option></option>
   <option>Chișinău</option>
   <option>Bălți</option>
@@ -83,8 +78,8 @@ if ( isset($_SESSION['logged_user'])) : ?>
   <option>Cornești</option>
 
 </select>
-&nbsp&nbsp
-<select name="orasul_v" required>
+&nbsp;&nbsp;
+<select name="orasul_v" required="">
   <option></option>
   <option>Chișinău</option>
   <option>Bălți</option>
@@ -134,189 +129,28 @@ if ( isset($_SESSION['logged_user'])) : ?>
   <option>Cornești</option>
 </select>
 <br><br>
-<button type="submit" name="button-cautare" class="buton-cautare" >Cauta</button>
+<button type="submit" name="button-cautare" class="buton-cautare">Cauta</button>
 </form>
 
 <div class="anunturi">
 <a id="anunturi"></a>
-<?PHP
-
-$data = $_GET;
-
-if(isset($_GET['button-cautare'])){
-$anunturi = R::findCollection( 'anunturi', ' ORDER BY data_plecare ASC LIMIT 50 ' );
-
-$nr = 0;
-
-    while( $item = $anunturi->next() ) {
-
-		if($item->orasul_plecare == $data['orasul_p']  &&  $item->orasul_venire == $data['orasul_v']){
-      echo '<div class="anunt">' . '<div style="text-align:left;">&nbsp&nbsp' . $item->nume . '</div>' . $item->orasul_plecare . '-' . $item->orasul_venire . '<br>'. $item->locuri_libere . ' locuri libere <br> ' .   date('d-m-Y', strtotime($item->data_plecare))  .'<br>' . '<a style="text-decoration:none; color:black;"" href="tel:' . $item->telefon .'">' . $item->telefon . '</a> <br> 
+<div class="anunt"><div style="text-align:left;">&nbsp;&nbsp;Andrei</div>Chișinău-Chișinău<br>4 locuri libere <br> 28-08-2020<br><a style="text-decoration:none; color:black;" "="" href="tel:060652850">060652850</a> <br> 
       
       
-      ' . '<br></div><br>';
-       
-      $nr = $nr + 1;
-
-		}
-
-		}
-if($nr == 0){echo 'Nu există anunțuri în direcția selectată';}
-    }
- ?>
-
-
-</div>
-
-<?php else : ?>
-
-
-<!-- Daca nu esti logat -->
-
-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="index.php"><img src="img/logo-violet.png"  height="10%" vspace="20" ></a>
-<div class="butoane" >
-<a href="login.php"  class="btn-logare" >Logare</a>&nbsp&nbsp
-<a href="signup.php"  class="btn-logare" >Înregistrare</a>
-</div>
-<img src="img/unnamed1.jpg"  width="100%"  >
-
-<form action="index.php" method="GET" class="cautare" >
-<select value="" name="orasul_p" required>
-<option>Orașul de plecare</option>
-  <option>Chișinău</option>
-  <option>Bălți</option>
-  <option>Ungheni</option>
-  <option>Cahul</option>
-  <option>Soroca</option>
-  <option>Strășeni</option>
-  <option>Durlești</option>
-  <option>Căușeni</option>
-  <option>Edineț</option>
-  <option>Drochia</option>
-  <option>Ialoveni</option>
-  <option>Hâncești</option>
-  <option>Sângerei</option>
-  <option>Taraclia</option>
-  <option>Fălești</option>
-  <option>Florești</option>
-  <option>Cimișlia</option>
-  <option>Rezina</option>
-  <option>Anenii Noi</option>
-  <option>Călărași</option>
-  <option>Cricova</option>
-  <option>Nisporeni</option>
-  <option>Sângera</option>
-  <option>Râșcani</option>
-  <option>Glodeni</option>
-  <option>Basarabeasca</option>
-  <option>Leova</option>
-  <option>Briceni</option>
-  <option>Ocnița</option>
-  <option>Telenești</option>
-  <option>Cupcini</option>
-  <option>Dondușeni</option>
-  <option>Ștefan Vodă</option>
-  <option>Criuleni</option>
-  <option>Otaci</option>
-  <option>Șoldănești</option>
-  <option>Tvardița</option>
-  <option>Vadul lui Vodă</option>
-  <option>Lipcani</option>
-  <option>Iargara</option>
-  <option>Căinari</option>
-  <option>Costești</option>
-  <option>Vatra</option>
-  <option>Cantemir</option>
-  <option>Biruința</option>
-  <option>Cornești</option>
-</select>
-&nbsp&nbsp
-<select name="orasul_v" required>
-  <option>Orașul de sosire</option>
-  <option>Chișinău</option>
-  <option>Bălți</option>
-  <option>Ungheni</option>
-  <option>Cahul</option>
-  <option>Soroca</option>
-  <option>Strășeni</option>
-  <option>Durlești</option>
-  <option>Căușeni</option>
-  <option>Edineț</option>
-  <option>Drochia</option>
-  <option>Ialoveni</option>
-  <option>Hâncești</option>
-  <option>Sângerei</option>
-  <option>Taraclia</option>
-  <option>Fălești</option>
-  <option>Florești</option>
-  <option>Cimișlia</option>
-  <option>Rezina</option>
-  <option>Anenii Noi</option>
-  <option>Călărași</option>
-  <option>Cricova</option>
-  <option>Nisporeni</option>
-  <option>Sângera</option>
-  <option>Râșcani</option>
-  <option>Glodeni</option>
-  <option>Basarabeasca</option>
-  <option>Leova</option>
-  <option>Briceni</option>
-  <option>Ocnița</option>
-  <option>Telenești</option>
-  <option>Cupcini</option>
-  <option>Dondușeni</option>
-  <option>Ștefan Vodă</option>
-  <option>Criuleni</option>
-  <option>Otaci</option>
-  <option>Șoldănești</option>
-  <option>Tvardița</option>
-  <option>Vadul lui Vodă</option>
-  <option>Lipcani</option>
-  <option>Iargara</option>
-  <option>Căinari</option>
-  <option>Costești</option>
-  <option>Vatra</option>
-  <option>Cantemir</option>
-  <option>Biruința</option>
-  <option>Cornești</option>
-</select>
-
-<br><br>
-<a href="#anunturi" ><button type="submit" name="button-cautare" class="buton-cautare" >Caută</button></a>
-</form>
-
-
+      <br></div><br><div class="anunt"><div style="text-align:left;">&nbsp;&nbsp;Sergiu</div>Chișinău-Chișinău<br>4 locuri libere <br> 25-09-2020<br><a style="text-decoration:none; color:black;" "="" href="tel:060735838">060735838</a> <br> 
+      
+      
+      <br></div><br><div class="anunt"><div style="text-align:left;">&nbsp;&nbsp;Andrei</div>Chișinău-Chișinău<br>3 locuri libere <br> 26-09-2020<br><a style="text-decoration:none; color:black;" "="" href="tel:060652850">060652850</a> <br> 
+      
+      
+      <br></div><br><div class="anunt"><div style="text-align:left;">&nbsp;&nbsp;Andrei</div>Chișinău-Chișinău<br>3 locuri libere <br> 26-09-2020<br><a style="text-decoration:none; color:black;" "="" href="tel:060652850">060652850</a> <br> 
+      
+      
+      <br></div><br>
 
 </div>
-<br><br><br>
-<div class="anunturi">
-<a id="anunturi"></a>
-<?PHP
 
-$data = $_GET;
 
-if(isset($_GET['button-cautare'])){
-$anunturi = R::findCollection( 'anunturi', ' ORDER BY data_plecare ASC LIMIT 50 ' );
-
-$nr = 0;
-
-    while( $item = $anunturi->next() ) {
-
-		if($item->orasul_plecare == $data['orasul_p']  &&  $item->orasul_venire == $data['orasul_v']){
-			echo '<div class="anunt">' . '<div style="text-align:left;">&nbsp&nbsp' . $item->nume . '</div>' . $item->orasul_plecare . '-' . $item->orasul_venire . '<br>'. $item->locuri_libere . ' locuri libere <br> ' .   date('d-m-Y', strtotime($item->data_plecare))  .'<br>' . $item->telefon . ' <br>' . '<br></div><br>';
-       
-      $nr = $nr + 1;
-
-		}
-
-		}
-if($nr == 0){echo 'Nu există anunțuri în direcția selectată';}
-    }
- ?>
-</div> 
-
-<?php endif; ?>
-</body>
 <style>
 
 /*calculator*/
@@ -727,4 +561,4 @@ border: 10px solid #6969ff;
 
 
 
-</html>
+</center></body></html>
