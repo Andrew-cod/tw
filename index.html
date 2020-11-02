@@ -1,0 +1,730 @@
+<html style="font-family: Noticia Text, Regular;" >
+<head>
+    <title>Poputca</title>
+    <link rel="shortcut icon" href="car-icon.png" />
+    <link rel="stylesheet" href="https://use.typekit.net/bsz1qlf.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ </head>
+<body style="margin:0;" >
+<section class="top-bar">
+<?php 
+require "db.php";
+
+if ( isset($_SESSION['logged_user'])) : ?>
+
+<!-- Daca esti logat -->
+
+
+
+<br>
+<img src="img/logo-violet.png" height="10%"  class="logo-violet" >
+<br>
+&nbsp<div class="nume" >
+<a href="anunt.php" class="buton-adauga-un-anunt" >Adaugă un anunț</a>
+<a href="anunturile_mele.php" class="buton-adauga-un-anunt" >Anunțurile mele</a>
+</div>
+
+</section>
+<br>
+<a href="logout.php" class="logout buton-iesire" >Ieșiți</a>
+
+
+<img src="img/unnamed1.jpg" width="100%" class="img" >
+
+<center>
+<form action="index.php" method="GET" class="cautare" >
+<select value="" name="orasul_p" required >
+  <option></option>
+  <option>Chișinău</option>
+  <option>Bălți</option>
+  <option>Ungheni</option>
+  <option>Cahul</option>
+  <option>Soroca</option>
+  <option>Strășeni</option>
+  <option>Durlești</option>
+  <option>Căușeni</option>
+  <option>Edineț</option>
+  <option>Drochia</option>
+  <option>Ialoveni</option>
+  <option>Hâncești</option>
+  <option>Sângerei</option>
+  <option>Taraclia</option>
+  <option>Fălești</option>
+  <option>Florești</option>
+  <option>Cimișlia</option>
+  <option>Rezina</option>
+  <option>Anenii Noi</option>
+  <option>Călărași</option>
+  <option>Cricova</option>
+  <option>Nisporeni</option>
+  <option>Sângera</option>
+  <option>Râșcani</option>
+  <option>Glodeni</option>
+  <option>Basarabeasca</option>
+  <option>Leova</option>
+  <option>Briceni</option>
+  <option>Ocnița</option>
+  <option>Telenești</option>
+  <option>Cupcini</option>
+  <option>Dondușeni</option>
+  <option>Ștefan Vodă</option>
+  <option>Criuleni</option>
+  <option>Otaci</option>
+  <option>Șoldănești</option>
+  <option>Tvardița</option>
+  <option>Vadul lui Vodă</option>
+  <option>Lipcani</option>
+  <option>Iargara</option>
+  <option>Căinari</option>
+  <option>Costești</option>
+  <option>Vatra</option>
+  <option>Cantemir</option>
+  <option>Biruința</option>
+  <option>Cornești</option>
+
+</select>
+&nbsp&nbsp
+<select name="orasul_v" required>
+  <option></option>
+  <option>Chișinău</option>
+  <option>Bălți</option>
+  <option>Ungheni</option>
+  <option>Cahul</option>
+  <option>Soroca</option>
+  <option>Strășeni</option>
+  <option>Durlești</option>
+  <option>Căușeni</option>
+  <option>Edineț</option>
+  <option>Drochia</option>
+  <option>Ialoveni</option>
+  <option>Hâncești</option>
+  <option>Sângerei</option>
+  <option>Taraclia</option>
+  <option>Fălești</option>
+  <option>Florești</option>
+  <option>Cimișlia</option>
+  <option>Rezina</option>
+  <option>Anenii Noi</option>
+  <option>Călărași</option>
+  <option>Cricova</option>
+  <option>Nisporeni</option>
+  <option>Sângera</option>
+  <option>Râșcani</option>
+  <option>Glodeni</option>
+  <option>Basarabeasca</option>
+  <option>Leova</option>
+  <option>Briceni</option>
+  <option>Ocnița</option>
+  <option>Telenești</option>
+  <option>Cupcini</option>
+  <option>Dondușeni</option>
+  <option>Ștefan Vodă</option>
+  <option>Criuleni</option>
+  <option>Otaci</option>
+  <option>Șoldănești</option>
+  <option>Tvardița</option>
+  <option>Vadul lui Vodă</option>
+  <option>Lipcani</option>
+  <option>Iargara</option>
+  <option>Căinari</option>
+  <option>Costești</option>
+  <option>Vatra</option>
+  <option>Cantemir</option>
+  <option>Biruința</option>
+  <option>Cornești</option>
+</select>
+<br><br>
+<button type="submit" name="button-cautare" class="buton-cautare" >Cauta</button>
+</form>
+
+<div class="anunturi">
+<a id="anunturi"></a>
+<?PHP
+
+$data = $_GET;
+
+if(isset($_GET['button-cautare'])){
+$anunturi = R::findCollection( 'anunturi', ' ORDER BY data_plecare ASC LIMIT 50 ' );
+
+$nr = 0;
+
+    while( $item = $anunturi->next() ) {
+
+		if($item->orasul_plecare == $data['orasul_p']  &&  $item->orasul_venire == $data['orasul_v']){
+      echo '<div class="anunt">' . '<div style="text-align:left;">&nbsp&nbsp' . $item->nume . '</div>' . $item->orasul_plecare . '-' . $item->orasul_venire . '<br>'. $item->locuri_libere . ' locuri libere <br> ' .   date('d-m-Y', strtotime($item->data_plecare))  .'<br>' . '<a style="text-decoration:none; color:black;"" href="tel:' . $item->telefon .'">' . $item->telefon . '</a> <br> 
+      
+      
+      ' . '<br></div><br>';
+       
+      $nr = $nr + 1;
+
+		}
+
+		}
+if($nr == 0){echo 'Nu există anunțuri în direcția selectată';}
+    }
+ ?>
+
+
+</div>
+
+<?php else : ?>
+
+
+<!-- Daca nu esti logat -->
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="index.php"><img src="img/logo-violet.png"  height="10%" vspace="20" ></a>
+<div class="butoane" >
+<a href="login.php"  class="btn-logare" >Logare</a>&nbsp&nbsp
+<a href="signup.php"  class="btn-logare" >Înregistrare</a>
+</div>
+<img src="img/unnamed1.jpg"  width="100%"  >
+
+<form action="index.php" method="GET" class="cautare" >
+<select value="" name="orasul_p" required>
+<option>Orașul de plecare</option>
+  <option>Chișinău</option>
+  <option>Bălți</option>
+  <option>Ungheni</option>
+  <option>Cahul</option>
+  <option>Soroca</option>
+  <option>Strășeni</option>
+  <option>Durlești</option>
+  <option>Căușeni</option>
+  <option>Edineț</option>
+  <option>Drochia</option>
+  <option>Ialoveni</option>
+  <option>Hâncești</option>
+  <option>Sângerei</option>
+  <option>Taraclia</option>
+  <option>Fălești</option>
+  <option>Florești</option>
+  <option>Cimișlia</option>
+  <option>Rezina</option>
+  <option>Anenii Noi</option>
+  <option>Călărași</option>
+  <option>Cricova</option>
+  <option>Nisporeni</option>
+  <option>Sângera</option>
+  <option>Râșcani</option>
+  <option>Glodeni</option>
+  <option>Basarabeasca</option>
+  <option>Leova</option>
+  <option>Briceni</option>
+  <option>Ocnița</option>
+  <option>Telenești</option>
+  <option>Cupcini</option>
+  <option>Dondușeni</option>
+  <option>Ștefan Vodă</option>
+  <option>Criuleni</option>
+  <option>Otaci</option>
+  <option>Șoldănești</option>
+  <option>Tvardița</option>
+  <option>Vadul lui Vodă</option>
+  <option>Lipcani</option>
+  <option>Iargara</option>
+  <option>Căinari</option>
+  <option>Costești</option>
+  <option>Vatra</option>
+  <option>Cantemir</option>
+  <option>Biruința</option>
+  <option>Cornești</option>
+</select>
+&nbsp&nbsp
+<select name="orasul_v" required>
+  <option>Orașul de sosire</option>
+  <option>Chișinău</option>
+  <option>Bălți</option>
+  <option>Ungheni</option>
+  <option>Cahul</option>
+  <option>Soroca</option>
+  <option>Strășeni</option>
+  <option>Durlești</option>
+  <option>Căușeni</option>
+  <option>Edineț</option>
+  <option>Drochia</option>
+  <option>Ialoveni</option>
+  <option>Hâncești</option>
+  <option>Sângerei</option>
+  <option>Taraclia</option>
+  <option>Fălești</option>
+  <option>Florești</option>
+  <option>Cimișlia</option>
+  <option>Rezina</option>
+  <option>Anenii Noi</option>
+  <option>Călărași</option>
+  <option>Cricova</option>
+  <option>Nisporeni</option>
+  <option>Sângera</option>
+  <option>Râșcani</option>
+  <option>Glodeni</option>
+  <option>Basarabeasca</option>
+  <option>Leova</option>
+  <option>Briceni</option>
+  <option>Ocnița</option>
+  <option>Telenești</option>
+  <option>Cupcini</option>
+  <option>Dondușeni</option>
+  <option>Ștefan Vodă</option>
+  <option>Criuleni</option>
+  <option>Otaci</option>
+  <option>Șoldănești</option>
+  <option>Tvardița</option>
+  <option>Vadul lui Vodă</option>
+  <option>Lipcani</option>
+  <option>Iargara</option>
+  <option>Căinari</option>
+  <option>Costești</option>
+  <option>Vatra</option>
+  <option>Cantemir</option>
+  <option>Biruința</option>
+  <option>Cornești</option>
+</select>
+
+<br><br>
+<a href="#anunturi" ><button type="submit" name="button-cautare" class="buton-cautare" >Caută</button></a>
+</form>
+
+
+
+</div>
+<br><br><br>
+<div class="anunturi">
+<a id="anunturi"></a>
+<?PHP
+
+$data = $_GET;
+
+if(isset($_GET['button-cautare'])){
+$anunturi = R::findCollection( 'anunturi', ' ORDER BY data_plecare ASC LIMIT 50 ' );
+
+$nr = 0;
+
+    while( $item = $anunturi->next() ) {
+
+		if($item->orasul_plecare == $data['orasul_p']  &&  $item->orasul_venire == $data['orasul_v']){
+			echo '<div class="anunt">' . '<div style="text-align:left;">&nbsp&nbsp' . $item->nume . '</div>' . $item->orasul_plecare . '-' . $item->orasul_venire . '<br>'. $item->locuri_libere . ' locuri libere <br> ' .   date('d-m-Y', strtotime($item->data_plecare))  .'<br>' . $item->telefon . ' <br>' . '<br></div><br>';
+       
+      $nr = $nr + 1;
+
+		}
+
+		}
+if($nr == 0){echo 'Nu există anunțuri în direcția selectată';}
+    }
+ ?>
+</div> 
+
+<?php endif; ?>
+</body>
+<style>
+
+/*calculator*/
+@media only screen and (min-width: 1000px) {
+  
+.logo-violet {
+  position:relative;
+  left:1%;
+}
+
+body {
+  
+}
+
+
+.buton-adauga-un-anunt {
+
+background:    #ddffff;
+border-radius: 11px;
+padding:       10px 15px;
+color:         #815959;
+display:       inline-block;
+font:          normal bold 26px/1 "Open Sans", sans-serif;
+text-align:    center;
+text-decoration: none;
+}
+
+
+.buton-iesire {
+
+background:    #ddffff;
+border-radius: 11px;
+padding:       10px 15px;
+color:         #815959;
+display:       inline-block;
+font:          normal bold 26px/1 "Open Sans", sans-serif;
+text-align:    center;
+text-decoration: none;
+
+}
+
+.buton-anunturile-mele {
+
+background:    #ddffff;
+border-radius: 11px;
+padding:       19px 23px;
+color:         #815959;
+display:       inline-block;
+font:          normal bold 26px/1 "Open Sans", sans-serif;
+text-align:    center;
+
+}
+
+
+.logout {
+position:absolute;
+top:5%;
+left:92%;
+
+}
+
+.nume {
+
+position:absolute;
+left:33.5%;
+top:30.8%;
+}
+
+.img {
+position:absolute;
+top:15%;
+}
+
+.dreapta-sus {
+
+position:absolute;
+left:95%;
+top:0%;
+
+}
+
+.top-bar {
+position:relative;
+
+}
+
+::-webkit-scrollbar {
+width: 8px;
+}
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+.anunturi {
+text-align: center;
+position:absolute;
+top:95%;
+font-size:30px;
+left:30%;
+width:40%;
+text-align:center;
+margin: 0px auto;
+
+}
+
+.anunt {
+background-color:lightblue;
+color:black;
+border:10px solid lightblue;
+border-radius:10px;
+-webkit-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+-moz-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+}
+
+.butoane {
+
+position:absolute;
+left:80%;
+top:6.8%;
+
+}
+
+.btn-logare {
+font-size:1.4vw;
+background-color: lightblue;
+text-decoration:none;
+border:10px solid lightblue;
+font-family:helvetica;
+text-align:center;
+/*border-bottom: 2px solid #962d22;*/
+transition: background-color 0.5s , border 0.5s ;
+border-radius: 15px;
+}
+
+.btn-logare:hover {
+
+background-color:#6969ff;
+border: 10px solid #6969ff;
+} 
+
+
+html {
+margin:0;
+scroll-behavior: smooth;
+}
+
+.cautare {
+  position:absolute;
+  top:45%;
+  text-align:center;
+  width:100%;
+  margin: 0px auto;
+}
+
+body {
+margin: 0;
+
+}
+
+.obtiune {
+
+position:relative;
+left:45%;
+
+}
+
+.buton {
+
+
+position: fixed;
+right:2%;
+-webkit-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+-moz-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+
+}
+
+
+
+
+select {
+
+height: 55px;
+font-size: 100%;
+font-weight: bold;
+cursor: pointer;
+border-radius: 10px;
+background-color: lightblue;
+border: none;
+border-bottom: 2px solid #962d22;
+color: white;
+padding: 10px;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
+padding: 10px;
+text-align:center;
+font-size:28px;
+
+}
+/* For IE <= 11 */
+select::-ms-expand {
+display: none; 
+}
+
+
+.buton-cautare {
+border-radius: 10px;
+font-size:1.4vw;
+background-color: lightblue;
+text-decoration:none;
+padding: 7px 14px;
+font-family:helvetica;
+text-align:center;
+border: none;
+border-bottom: 1.5px solid #962d22;
+}
+
+
+
+}
+/*gata calculator*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------*/
+
+.center {
+  width:100%;
+  margin: 0px auto;
+}
+
+@media only screen and (max-width: 1000px) {
+
+
+  ::-webkit-scrollbar {
+width: 0px;
+}
+::-webkit-scrollbar-track {
+background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+background: #555; 
+}
+
+.logo-violet {
+
+  width:auto;
+  margin: 0px auto;
+
+}
+
+.buton-adauga-un-anunt {
+font-size:5.8vw;
+background:    #ddffff;
+border-radius: 5px;
+padding:       6px 9px;
+color:         #815959;
+font:          normal bold  "Open Sans", sans-serif;
+text-align:    center;
+text-decoration: none;
+}
+
+.nume {
+
+position:relative;
+top:30.8%;
+width:100%;
+  margin: 0px auto;
+}
+
+
+.logout {
+position:absolute;
+top:1%;
+left:87%;
+
+}
+
+.buton-iesire {
+
+background:    #ddffff;
+border-radius: 11px;
+padding:       7px 11px;
+color:         #815959;
+display:       inline-block;
+font:          normal bold 18px/1 "Open Sans", sans-serif;
+text-align:    center;
+text-decoration: none;
+
+}
+
+
+
+
+
+
+.cautare {
+  position:absolute;
+  top:37%;
+  text-align:center;
+  width:100%;
+  margin: 0px auto;
+}
+
+.buton {
+
+
+position: fixed;
+right:2%;
+-webkit-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+-moz-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+
+}
+
+
+
+
+select {
+width:240px;
+height: 55px;
+font-size: 100%;
+font-weight: bold;
+cursor: pointer;
+border-radius: 10px;
+background-color: lightblue;
+border: none;
+border-bottom: 2px solid #962d22;
+color: white;
+padding: 10px;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
+text-align:center;
+}
+
+.buton-cautare {
+border-radius: 10px;
+font-size:20px;
+background-color: lightblue;
+text-decoration:none;
+padding: 8px 20px;
+font-family:helvetica;
+text-align:center;
+border: none;
+border-bottom: 1.5px solid #962d22;
+}
+
+.anunt {
+background-color:lightblue;
+color:black;
+border:10px solid lightblue;
+border-radius:10px;
+-webkit-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+-moz-box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+box-shadow: 8px 31px 30px -21px rgba(0,0,0,0.63);
+}
+
+.butoane {
+
+position:absolute;
+right:4%;
+top:6.5%;
+
+}
+
+.btn-logare {
+font-size:20px;
+background-color: lightblue;
+text-decoration:none;
+border:10px solid lightblue;
+font-family:helvetica;
+text-align:center;
+/*border-bottom: 2px solid #962d22;*/
+transition: background-color 0.5s , border 0.5s ;
+border-radius: 15px;
+}
+
+.btn-logare:hover {
+
+background-color:#6969ff;
+border: 10px solid #6969ff;
+} 
+
+
+
+}
+</style>
+
+
+
+
+
+
+</html>
